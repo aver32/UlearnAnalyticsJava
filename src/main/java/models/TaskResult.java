@@ -1,4 +1,4 @@
-package org.example;
+package models;
 
 public class TaskResult {
     private double currentTaskResult;

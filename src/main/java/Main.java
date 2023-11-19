@@ -1,15 +1,23 @@
-package org.example;
+import com.vk.api.sdk.exceptions.ApiException;
+import com.vk.api.sdk.exceptions.ClientException;
+import configUtils.ConfigFileReader;
+import models.Task;
+import models.Theme;
+import parser.CsvParser;
+import vkApi.VkRepository;
 
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        var parser = new CsvParser("C:\\Users\\flyli\\IdeaProjects\\prNew\\src\\main\\java\\org\\example\\basicprogramming_2_1.csv");
+    public static void main(String[] args) throws ClientException, ApiException, InterruptedException {
+        var parser = new CsvParser("C:\\Users\\flyli\\IdeaProjects\\UlearnAnalyticsJava\\src\\main\\java\\basicprogramming_2_1.csv");
+        var vkApi = new VkRepository();
         parser.parse();
+        vkApi.addCitiesToStudents(parser.getStudents());
         System.out.println("Введите имя студента для получения баллов: ");
         Scanner scanner = new Scanner(System.in);
         var name = scanner.next();
-        for (Theme theme: parser.themes) {
+        for (Theme theme: parser.getThemes()) {
             for (Task task: theme.getTasks()) {
                 System.out.printf("Тема:%s | %s:%s | Результат - %s",
                         theme.getNameTheme(),
