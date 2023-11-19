@@ -1,16 +1,32 @@
 package org.example;
 
+import java.util.ArrayList;
+
 public class Task {
-    private TaskType taskType;
-    private double maxPoint;
-    private Theme currentTheme;
+    private final TaskType taskType;
+    private final double maxPoint;
+    private final ArrayList<TaskResult> taskResults;
+    private final String nameTask;
     private double currentPoints;
 
-    public Task(TaskType taskType, double maxPoint, Theme currentTheme, double currentPoints) {
+    public Task(TaskType taskType, String nameTask, double maxPoint) {
         this.taskType = taskType;
+        this.nameTask = nameTask;
         this.maxPoint = maxPoint;
-        this.currentTheme = currentTheme;
-        this.currentPoints = currentPoints;
+        this.taskResults = new ArrayList<>();
+    }
+
+    public void addTaskResult(TaskResult taskResult) {
+        taskResults.add(taskResult);
+    }
+
+    public TaskResult getTaskResultForStudent(String name) {
+        for (TaskResult result: taskResults) {
+            if (result.getCurrentStudent().name.equals(name)) {
+                return result;
+            }
+        }
+        return null;
     }
 
     public double getMaxPoint() {
@@ -21,11 +37,29 @@ public class Task {
         return taskType;
     }
 
-    public Theme getCurrentTheme() {
-        return currentTheme;
-    }
-
     public double getCurrentPoints() {
         return currentPoints;
+    }
+
+    public String getNameTask() {
+        return nameTask;
+    }
+
+    public void setCurrentPoints(double currentPoints) {
+        if (currentPoints < 0) {
+            throw new IllegalArgumentException("Неверные баллы");
+        }
+        this.currentPoints = currentPoints;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s: %s - %s", taskType.getValue(), nameTask, maxPoint);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Task task = (Task) obj;
+        return this.nameTask.equals(task.nameTask);
     }
 }

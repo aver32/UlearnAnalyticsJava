@@ -1,19 +1,29 @@
 package org.example;
 
+import java.util.ArrayList;
+
 public class Theme {
     private String nameTheme;
-    private Task[] tasks;
+    private ArrayList<Task> tasks;
 
-    public Theme(String nameTheme, Task[] tasks) {
+    public Theme(String nameTheme) {
+
+        tasks = new ArrayList<>();
         this.nameTheme = nameTheme;
-        this.tasks = tasks;
+    }
+    public Theme(){
+
+    }
+
+    public void addTask(Task task) {
+        tasks.add(task);
     }
 
     public String getNameTheme() {
         return nameTheme;
     }
 
-    public Task[] getTasks() {
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 }
