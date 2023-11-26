@@ -1,19 +1,24 @@
 package org.example;
 
 public class TaskResult {
-    private Task currentTask;
     private double currentTaskResult;
+    private final Student currentStudent;
 
-    public TaskResult(Task currentTask, double currentTaskResult) {
-        this.currentTask = currentTask;
+    public TaskResult(double currentTaskResult, Student student) {
         this.currentTaskResult = currentTaskResult;
+        this.currentStudent = student;
     }
 
     public double getCurrentTaskResult() {
         return currentTaskResult;
     }
 
-    public Task getCurrentTask() {
-        return currentTask;
+    @Override
+    public String toString() {
+        return String.format("Студент: %s - баллы: %s\n", currentStudent.toString(), currentTaskResult);
+    }
+
+    public Student getCurrentStudent() {
+        return currentStudent;
     }
 }

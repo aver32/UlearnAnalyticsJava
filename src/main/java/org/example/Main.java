@@ -1,19 +1,22 @@
 package org.example;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
-
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
-
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+        var parser = new CsvParser("C:\\Users\\flyli\\IdeaProjects\\prNew\\src\\main\\java\\org\\example\\basicprogramming_2_1.csv");
+        parser.parse();
+        System.out.println("Введите имя студента для получения баллов: ");
+        Scanner scanner = new Scanner(System.in);
+        var name = scanner.next();
+        for (Theme theme: parser.themes) {
+            for (Task task: theme.getTasks()) {
+                System.out.printf("Тема:%s | %s:%s | Результат - %s",
+                        theme.getNameTheme(),
+                        task.getTaskType().toString(),
+                        task.getNameTask(),
+                        task.getTaskResultForStudent(name).toString());
+            }
         }
     }
 }
