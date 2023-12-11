@@ -13,6 +13,14 @@ public abstract class Human {
         return name;
     }
 
+    public String getNameAndSurname() {
+        if (!name.isEmpty()) {
+            return name + " " + surname;
+        } else {
+            return surname;
+        }
+    }
+
     public String getSurname() {
         return surname;
     }

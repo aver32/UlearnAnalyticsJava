@@ -11,6 +11,7 @@ public class Student extends Human{
     public String getGroup() {
         return group;
     }
+    public String getCity() {return city;}
     public void setCity(String cityName) {
         city = cityName;
     }
