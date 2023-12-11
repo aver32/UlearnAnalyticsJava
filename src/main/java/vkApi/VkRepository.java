@@ -35,13 +35,23 @@ public class VkRepository {
     }
 
     public List<UserXtrRole> getUlearnGroupMembers() throws ClientException, ApiException, InterruptedException {
-        var response = vk.groups()
-                .getMembersWithFields(actor, Fields.CITY)
-                .groupId(CLUB_PROG_ID)
-                .execute()
-                .getItems();
+        var offset = 0;
+        var membersList = new ArrayList<UserXtrRole>();
+        while (true) {
+            var members = vk.groups()
+                    .getMembersWithFields(actor, Fields.CITY)
+                    .groupId(CLUB_PROG_ID)
+                    .offset(offset)
+                    .execute()
+                    .getItems();
+            offset += 1000;
+            membersList.addAll(members);
 
-        return response;
+            if (offset > (long) members.size()) {
+                break;
+            }
+        }
+        return membersList;
     }
 
     public void addCitiesToStudents(ArrayList<Student> students){
