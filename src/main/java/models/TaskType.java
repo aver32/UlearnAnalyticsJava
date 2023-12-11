@@ -1,4 +1,4 @@
-package org.example;
+package models;
 
 public enum TaskType {
     ACTIVITY("Акт"),

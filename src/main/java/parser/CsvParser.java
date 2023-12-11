@@ -1,23 +1,23 @@
-package org.example;
+package parser;
 
 import com.opencsv.*;
 import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
+import models.*;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class CsvParser {
     private final CSVParser parser;
     private final String csvFilePath;
-    Set<Theme> themes;
-    ArrayList<Task> tasks;
-    ArrayList<TaskResult> results;
-    ArrayList<Student> students;
+    private final Set<Theme> themes;
+    private ArrayList<Task> tasks;
+    private ArrayList<TaskResult> results;
+    private ArrayList<Student> students;
 
     public CsvParser(String absoluteFilePath) {
         themes = new LinkedHashSet<>();
@@ -48,13 +48,20 @@ public class CsvParser {
         }
     }
 
+    public Set<Theme> getThemes() {
+        return themes;
+    }
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+
     private void createTasksResults(CSVReader reader) throws IOException, CsvException {
         for (String[] studentData: reader.readAll()) {
             String[] nameAndSurname = studentData[0].split(" ");
-            var surname = nameAndSurname[0];
+            var surname = nameAndSurname[0].trim();
             var name = nameAndSurname.length > 1 ?
                     String.join(" ",
-                            Arrays.stream(nameAndSurname).skip(1).toList()) : "";
+                            Arrays.stream(nameAndSurname).skip(1).toList()).trim() : "";
             Student student = new Student(name, surname, studentData[1]);
             students.add(student);
             studentData = ArrayUtils.removeAll(studentData, 0, 1);

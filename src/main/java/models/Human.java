@@ -1,4 +1,4 @@
-package org.example;
+package models;
 
 public abstract class Human {
     protected String name;
