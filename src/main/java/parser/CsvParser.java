@@ -31,6 +31,10 @@ public class CsvParser {
         csvFilePath = absoluteFilePath;
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     public void parse() {
         try (CSVReader reader = new CSVReaderBuilder(new FileReader(csvFilePath, StandardCharsets.UTF_8)).withCSVParser(parser).build()) {
             String[] headerTheme = reader.readNext();
@@ -87,7 +91,7 @@ public class CsvParser {
 
             curThemeName = taskType == TaskType.ACTIVITY ? headerTheme[i] : curThemeName;
             theme = taskType == TaskType.ACTIVITY ? new Theme(curThemeName) : theme;
-            Task task = new Task(taskType, exerciseName, Double.parseDouble(maxPointsTasks[i]));
+            Task task = new Task(taskType, exerciseName, Double.parseDouble(maxPointsTasks[i]), theme.getNameTheme());
             theme.addTask(task);
             tasks.add(task);
             themes.add(theme);

@@ -7,12 +7,14 @@ public class Task {
     private final double maxPoint;
     private final ArrayList<TaskResult> taskResults;
     private final String nameTask;
+    private final String themeName;
     private double currentPoints;
 
-    public Task(TaskType taskType, String nameTask, double maxPoint) {
+    public Task(TaskType taskType, String nameTask, double maxPoint, String themeName) {
         this.taskType = taskType;
         this.nameTask = nameTask;
         this.maxPoint = maxPoint;
+        this.themeName = themeName;
         this.taskResults = new ArrayList<>();
     }
 
@@ -29,6 +31,10 @@ public class Task {
         return null;
     }
 
+    public ArrayList<TaskResult> getTaskResults() {
+        return taskResults;
+    }
+
     public double getMaxPoint() {
         return maxPoint;
     }
@@ -43,6 +49,9 @@ public class Task {
 
     public String getNameTask() {
         return nameTask;
+    }
+    public String getThemeName() {
+        return themeName;
     }
 
     public void setCurrentPoints(double currentPoints) {
